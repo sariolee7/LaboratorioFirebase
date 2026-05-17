@@ -1,5 +1,4 @@
 using Firebase.Firestore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -8,20 +7,26 @@ public class FirestoreManager : MonoBehaviour
 {
     FirebaseFirestore db;
 
-    void Start()
+    async void Start()
     {
         db = FirebaseFirestore.DefaultInstance;
-        // Escucha el game over del GameManager para guardar automáticamente
+        Debug.Log("FirestoreManager: Firestore inicializado");
+
+        // Espera a que GameManager esté listo
+        await Task.Yield();
+
         GameManager.Instance.OnGameOver += HandleGameOver;
+        Debug.Log("FirestoreManager: suscrito a OnGameOver");
     }
+
     void OnDestroy()
     {
-        GameManager.Instance.OnGameOver -= HandleGameOver;
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnGameOver -= HandleGameOver;
     }
 
     async void HandleGameOver()
     {
-        // Lee el nombre y stats directamente del GameManager, igual que UIManager
         string playerName = GameManager.Instance.PlayerName;
         int score         = GameManager.Instance.Score;
         int wave          = GameManager.Instance.Wave;
@@ -32,10 +37,24 @@ public class FirestoreManager : MonoBehaviour
 
     public async Task SaveSession(string playerName, int score, int wave, int kills)
     {
-        CollectionReference sessionsRef = db
+        // Igual que el ejemplo: db.Collection().Document()
+        // El nombre del jugador es el Document, sessions es la subcolección
+        DocumentReference playerRef = db
             .Collection("players")
-            .Document(playerName)
-            .Collection("sessions");
+            .Document(playerName);
+
+        // Crea o actualiza el documento del jugador
+        Dictionary<string, object> playerData = new Dictionary<string, object>
+        {
+            { "playerName", playerName },
+            { "lastSeen",   Timestamp.GetCurrentTimestamp() }
+        };
+
+        await playerRef.SetAsync(playerData, SetOptions.MergeAll);
+        Debug.Log($"Jugador creado/actualizado: {playerName}");
+
+        // Igual que AddDataToCollection del ejemplo pero en la subcolección sessions
+        CollectionReference sessionsRef = playerRef.Collection("sessions");
 
         Dictionary<string, object> session = new Dictionary<string, object>
         {
@@ -44,7 +63,6 @@ public class FirestoreManager : MonoBehaviour
             { "finalScore",  score },
             { "waveReached", wave },
             { "totalKills",  kills },
-            // tus métricas adicionales aquí
         };
 
         await sessionsRef.AddAsync(session);
