@@ -1,0 +1,164 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\UnityProjects\\LaboratorioFirebase\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|C:\\UnityProjects\\LaboratorioFirebase\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\EnemySpawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|solutionrelative:Assets\\scripts\\EnemySpawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\ClickHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\gameplay\\ClickHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\EnemySpawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\gameplay\\EnemySpawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\GameManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\gameplay\\GameManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\Enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\scripts\\gameplay\\Enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\ClickHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|solutionrelative:Assets\\scripts\\ClickHandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\Enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|solutionrelative:Assets\\scripts\\Enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\GameManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0328F01-0A38-FBE8-1C09-9C0CEC7469C2}|Assembly-CSharp.csproj|solutionrelative:Assets\\scripts\\GameManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClickHandler.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\ClickHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\gameplay\\ClickHandler.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\ClickHandler.cs",
+              "RelativeToolTip": "Assets\\scripts\\gameplay\\ClickHandler.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T05:34:15.309Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EnemySpawner.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\EnemySpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\gameplay\\EnemySpawner.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\EnemySpawner.cs",
+              "RelativeToolTip": "Assets\\scripts\\gameplay\\EnemySpawner.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAQwGUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T05:33:57.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\gameplay\\GameManager.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\GameManager.cs",
+              "RelativeToolTip": "Assets\\scripts\\gameplay\\GameManager.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAQwFsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T05:33:22.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Uimanager.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\Uimanager.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Uimanager.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\Uimanager.cs",
+              "RelativeToolTip": "Assets\\scripts\\Uimanager.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAQwI8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T05:32:39.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\gameplay\\Enemy.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\gameplay\\Enemy.cs",
+              "RelativeToolTip": "Assets\\scripts\\gameplay\\Enemy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T05:32:21.144Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ClickHandler.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\ClickHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\ClickHandler.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\ClickHandler.cs",
+              "RelativeToolTip": "Assets\\scripts\\ClickHandler.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T04:02:49.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EnemySpawner.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\EnemySpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\EnemySpawner.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\EnemySpawner.cs",
+              "RelativeToolTip": "Assets\\scripts\\EnemySpawner.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAQwHEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T04:02:25.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\Enemy.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\Enemy.cs",
+              "RelativeToolTip": "Assets\\scripts\\Enemy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T04:02:14.841Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\scripts\\GameManager.cs",
+              "ToolTip": "C:\\UnityProjects\\LaboratorioFirebase\\Assets\\scripts\\GameManager.cs",
+              "RelativeToolTip": "Assets\\scripts\\GameManager.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAA9wDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T04:01:36.305Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
