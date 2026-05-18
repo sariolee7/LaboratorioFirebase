@@ -7,62 +7,129 @@ public class FirestoreManager : MonoBehaviour
 {
     FirebaseFirestore db;
 
+    // ── Flag para evitar guardar dos veces ──
+    bool sessionSaved = false;
+
+    // ── Métricas que se acumulan durante la partida ──
+    float sessionStartTime;
+    Dictionary<string, int> killsPerWave = new Dictionary<string, int>();
+    int killsThisWave = 0;
+    int currentWaveTracked = 1;
+
+    // Para avgReactionTime
+    float lastEnemySpawnTime = 0f;
+    List<float> reactionTimes = new List<float>();
+
     async void Start()
     {
         db = FirebaseFirestore.DefaultInstance;
-        Debug.Log("FirestoreManager: Firestore inicializado");
-
-        // Espera a que GameManager esté listo
         await Task.Yield();
 
-        GameManager.Instance.OnGameOver += HandleGameOver;
-        Debug.Log("FirestoreManager: suscrito a OnGameOver");
+        sessionStartTime = Time.time;
+
+        GameManager.Instance.OnGameOver     += HandleGameOver;
+        GameManager.Instance.OnWaveChanged  += HandleWaveChanged;
+        GameManager.Instance.OnKillsChanged += HandleKillsChanged;
     }
 
     void OnDestroy()
     {
-        if (GameManager.Instance != null)
-            GameManager.Instance.OnGameOver -= HandleGameOver;
+        if (GameManager.Instance == null) return;
+        GameManager.Instance.OnGameOver     -= HandleGameOver;
+        GameManager.Instance.OnWaveChanged  -= HandleWaveChanged;
+        GameManager.Instance.OnKillsChanged -= HandleKillsChanged;
+    }
+
+    void OnApplicationQuit()
+    {
+        if (GameManager.Instance == null) return;
+        if (string.IsNullOrEmpty(GameManager.Instance.PlayerName)) return;
+        if (sessionSaved) return; // ← ya se guardó al morir
+        _ = SaveSession();
+    }
+
+    void HandleWaveChanged(int newWave)
+    {
+        killsPerWave[currentWaveTracked.ToString()] = killsThisWave;
+        killsThisWave = 0;
+        currentWaveTracked = newWave;
+        lastEnemySpawnTime = Time.time;
+    }
+
+    void HandleKillsChanged(int totalKills)
+    {
+        killsThisWave++;
+
+        if (lastEnemySpawnTime > 0f)
+        {
+            float reaction = Time.time - lastEnemySpawnTime;
+            reactionTimes.Add(reaction);
+            lastEnemySpawnTime = Time.time;
+        }
     }
 
     async void HandleGameOver()
     {
+        if (sessionSaved) return; // ← por si acaso
+        killsPerWave[currentWaveTracked.ToString()] = killsThisWave;
+        await SaveSession();
+    }
+
+    // Resetea todo para una nueva partida
+    public void ResetSession()
+    {
+        sessionSaved       = false;
+        sessionStartTime   = Time.time;
+        killsPerWave       = new Dictionary<string, int>();
+        killsThisWave      = 0;
+        currentWaveTracked = 1;
+        lastEnemySpawnTime = 0f;
+        reactionTimes      = new List<float>();
+        Debug.Log("FirestoreManager: sesión reseteada");
+    }
+
+    public async Task SaveSession()
+    {
+        if (sessionSaved) return; // ← bloquea cualquier llamada extra
+        sessionSaved = true;
+
         string playerName = GameManager.Instance.PlayerName;
         int score         = GameManager.Instance.Score;
         int wave          = GameManager.Instance.Wave;
         int kills         = GameManager.Instance.Kills;
+        float duration    = Time.time - sessionStartTime;
 
-        await SaveSession(playerName, score, wave, kills);
-    }
+        float avgReaction = 0f;
+        if (reactionTimes.Count > 0)
+        {
+            float total = 0f;
+            foreach (float t in reactionTimes) total += t;
+            avgReaction = total / reactionTimes.Count;
+        }
 
-    public async Task SaveSession(string playerName, int score, int wave, int kills)
-    {
-        // Igual que el ejemplo: db.Collection().Document()
-        // El nombre del jugador es el Document, sessions es la subcolección
         DocumentReference playerRef = db
             .Collection("players")
             .Document(playerName);
 
-        // Crea o actualiza el documento del jugador
-        Dictionary<string, object> playerData = new Dictionary<string, object>
+        await playerRef.SetAsync(new Dictionary<string, object>
         {
             { "playerName", playerName },
             { "lastSeen",   Timestamp.GetCurrentTimestamp() }
-        };
+        }, SetOptions.MergeAll);
 
-        await playerRef.SetAsync(playerData, SetOptions.MergeAll);
-        Debug.Log($"Jugador creado/actualizado: {playerName}");
-
-        // Igual que AddDataToCollection del ejemplo pero en la subcolección sessions
         CollectionReference sessionsRef = playerRef.Collection("sessions");
 
         Dictionary<string, object> session = new Dictionary<string, object>
         {
-            { "playerName",  playerName },
-            { "startTime",   Timestamp.GetCurrentTimestamp() },
-            { "finalScore",  score },
-            { "waveReached", wave },
-            { "totalKills",  kills },
+            { "playerName",      playerName },
+            { "startTime",       Timestamp.GetCurrentTimestamp() },
+            { "duration",        Mathf.Round(duration) },
+            { "finalScore",      score },
+            { "waveReached",     wave },
+            { "totalKills",      kills },
+            { "killsPerWave",    killsPerWave },
+            { "killsPerMinute",  kills / (duration / 60f) },
+            { "avgReactionTime", avgReaction },
         };
 
         await sessionsRef.AddAsync(session);
