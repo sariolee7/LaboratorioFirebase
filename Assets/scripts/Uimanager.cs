@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI goTotalKills;
     public Button restartButton;
     public Button mainMenuButton;
+    public Button dashboardButton; // ← agregar esta línea
 
     void Awake()
     {
@@ -47,6 +48,7 @@ public class UIManager : MonoBehaviour
         startButton.onClick.AddListener(OnStartPressed);
         restartButton.onClick.AddListener(OnRestartPressed);
         mainMenuButton.onClick.AddListener(OnMainMenuPressed);
+        dashboardButton.onClick.AddListener(() =>{Application.OpenURL("https://laboratoriofirebaseunity.web.app");});
 
         GameManager.Instance.OnPlayerNameSet += UpdatePlayerName;
         GameManager.Instance.OnScoreChanged += UpdateScore;
