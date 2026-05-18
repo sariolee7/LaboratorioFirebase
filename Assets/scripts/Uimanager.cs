@@ -31,9 +31,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI goFinalScore;
     public TextMeshProUGUI goWaveReached;
     public TextMeshProUGUI goTotalKills;
+    public TextMeshProUGUI goRanking;  
     public Button restartButton;
     public Button mainMenuButton;
-    public Button dashboardButton; // ← agregar esta línea
+    public Button dashboardButton; 
 
     void Awake()
     {
@@ -68,36 +69,37 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.OnGameOver -= ShowGameOver;
     }
 
-    void OnStartPressed()
+void OnStartPressed()
+{
+    string playerName = nameInput.text.Trim();
+    if (string.IsNullOrEmpty(playerName))
     {
-        string playerName = nameInput.text.Trim();
-
-        if (string.IsNullOrEmpty(playerName))
-        {
-            errorText.text = "Ingresa un nombre para continuar";
-            return;
-        }
-
-        errorText.text = "";
-        ShowScreen(gameScreen);
-        GameManager.Instance.StartGame(playerName);
+        errorText.text = "Ingresa un nombre para continuar";
+        return;
     }
+    errorText.text = "";
+    FindFirstObjectByType<FirestoreManager>().ResetSession(); // ← cambio
+    ShowScreen(gameScreen);
+    GameManager.Instance.StartGame(playerName);
+}
 
-    void OnRestartPressed()
-    {
-        ShowScreen(gameScreen);
-        GameManager.Instance.RestartGame();
-    }
+void OnRestartPressed()
+{
+    FindFirstObjectByType<FirestoreManager>().ResetSession(); // ← cambio
+    ShowScreen(gameScreen);
+    GameManager.Instance.RestartGame();
+}
 
-    void OnMainMenuPressed()
-    {
-        EnemySpawner.Instance.ClearEnemies();
-        GameManager.Instance.StopAllCoroutines();
-        waveBanner.SetActive(false);
-        nameInput.text = "";
-        errorText.text = "";
-        ShowScreen(startScreen);
-    }
+void OnMainMenuPressed()
+{
+    FindFirstObjectByType<FirestoreManager>().ResetSession(); // ← cambio
+    EnemySpawner.Instance.ClearEnemies();
+    GameManager.Instance.StopAllCoroutines();
+    waveBanner.SetActive(false);
+    nameInput.text = "";
+    errorText.text = "";
+    ShowScreen(startScreen);
+}
 
     void UpdatePlayerName(string playerName) => hudPlayerName.text = playerName;
     void UpdateScore(int score) => hudScore.text = score.ToString("N0");
@@ -126,15 +128,33 @@ public class UIManager : MonoBehaviour
         waveBanner.SetActive(false);
     }
 
-    void ShowGameOver()
-    {
-        goPlayerName.text = GameManager.Instance.PlayerName;
-        goFinalScore.text = GameManager.Instance.Score.ToString("N0");
-        goWaveReached.text = "Oleada " + GameManager.Instance.Wave;
-        goTotalKills.text = GameManager.Instance.Kills + " enemigos eliminados";
+async void ShowGameOver()
+{
+    goPlayerName.text  = GameManager.Instance.PlayerName;
+    goFinalScore.text  = GameManager.Instance.Score.ToString("N0");
+    goWaveReached.text = "Oleada " + GameManager.Instance.Wave;
+    goTotalKills.text  = GameManager.Instance.Kills + " enemigos eliminados";
 
-        ShowScreen(gameOverScreen);
+    ShowScreen(gameOverScreen);
+
+    // Cargar ranking desde Firebase
+    goRanking.text = "Cargando ranking...";
+    var firestoreManager = FindFirstObjectByType<FirestoreManager>();
+    var highscores = await firestoreManager.GetHighscores(3);
+
+    string rankingText = "--- TOP 3 ---\n";
+    string[] medals = { "1.", "2.", "3."};
+
+    for (int i = 0; i < highscores.Count; i++)
+    {
+        var entry = highscores[i];
+        string name  = entry.TryGetValue("playerName", out var n) ? n.ToString() : "?";
+        string score = entry.TryGetValue("score", out var s) ? ((long)s).ToString("N0") : "0";
+        rankingText += $"{medals[i]} {name} — {score}\n";
     }
+
+    goRanking.text = rankingText;
+}
 
     void ShowScreen(GameObject screen)
     {

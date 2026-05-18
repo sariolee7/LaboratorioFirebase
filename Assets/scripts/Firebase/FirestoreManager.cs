@@ -20,31 +20,31 @@ public class FirestoreManager : MonoBehaviour
     float lastEnemySpawnTime = 0f;
     List<float> reactionTimes = new List<float>();
 
-    async void Start()
-    {
-        db = FirebaseFirestore.DefaultInstance;
-        await Task.Yield();
+async void Start()
+{
+    db = FirebaseFirestore.DefaultInstance;
+    await Task.Yield();
 
-        sessionStartTime = Time.time;
+    sessionStartTime = Time.time;
 
-        GameManager.Instance.OnGameOver     += HandleGameOver;
-        GameManager.Instance.OnWaveChanged  += HandleWaveChanged;
-        GameManager.Instance.OnKillsChanged += HandleKillsChanged;
-    }
+    GameManager.Instance.OnGameOver     += HandleGameOver;
+    GameManager.Instance.OnWaveChanged  += HandleWaveChanged;
+    GameManager.Instance.OnKillsChanged += HandleKillsChanged;
+}
 
-    void OnDestroy()
-    {
-        if (GameManager.Instance == null) return;
-        GameManager.Instance.OnGameOver     -= HandleGameOver;
-        GameManager.Instance.OnWaveChanged  -= HandleWaveChanged;
-        GameManager.Instance.OnKillsChanged -= HandleKillsChanged;
-    }
+void OnDestroy()
+{
+    if (GameManager.Instance == null) return;
+    GameManager.Instance.OnGameOver     -= HandleGameOver;
+    GameManager.Instance.OnWaveChanged  -= HandleWaveChanged;
+    GameManager.Instance.OnKillsChanged -= HandleKillsChanged;
+}
 
     void OnApplicationQuit()
     {
         if (GameManager.Instance == null) return;
         if (string.IsNullOrEmpty(GameManager.Instance.PlayerName)) return;
-        if (sessionSaved) return; // ← ya se guardó al morir
+        if (sessionSaved) return; 
         _ = SaveSession();
     }
 
@@ -70,9 +70,10 @@ public class FirestoreManager : MonoBehaviour
 
     async void HandleGameOver()
     {
-        if (sessionSaved) return; // ← por si acaso
-        killsPerWave[currentWaveTracked.ToString()] = killsThisWave;
-        await SaveSession();
+    if (sessionSaved) return;
+    killsPerWave[currentWaveTracked.ToString()] = killsThisWave;
+    await SaveSession();
+    await SaveHighscore(GameManager.Instance.PlayerName, GameManager.Instance.Score); // ← agregar
     }
 
     // Resetea todo para una nueva partida
@@ -135,4 +136,33 @@ public class FirestoreManager : MonoBehaviour
         await sessionsRef.AddAsync(session);
         Debug.Log($"Sesión guardada para: {playerName}");
     }
+
+    public async Task SaveHighscore(string playerName, int score)
+{
+    CollectionReference highscoresRef = db.Collection("highscores");
+
+    Dictionary<string, object> highscore = new Dictionary<string, object>
+    {
+        { "playerName", playerName },
+        { "score",      score },
+        { "date",       Timestamp.GetCurrentTimestamp() }
+    };
+
+    await highscoresRef.AddAsync(highscore);
+    Debug.Log($"Highscore guardado: {playerName} - {score}");
+}
+
+public async Task<List<Dictionary<string, object>>> GetHighscores(int limit = 3)
+{
+    CollectionReference highscoresRef = db.Collection("highscores");
+    Query query = highscoresRef.OrderByDescending("score").Limit(limit);
+    QuerySnapshot snapshot = await query.GetSnapshotAsync();
+
+    List<Dictionary<string, object>> results = new List<Dictionary<string, object>>();
+    foreach (DocumentSnapshot doc in snapshot.Documents)
+        results.Add(doc.ToDictionary());
+
+    return results;
+}
+
 }
