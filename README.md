@@ -164,22 +164,24 @@ dashboardButton.onClick.AddListener(() =>
 ---
 
 ## Dashboard Web
-
+ 
 Página web desplegada en Firebase Hosting que lee datos reales desde Firestore.
-
+ 
 **URL:** `https://laboratoriofirebaseunity.web.app`
-
+ 
 ### Visualizaciones
-
+ 
 | Sección | Tipo | Descripción |
 |---------|------|-------------|
-| Stats rápidas | Tarjetas | Sesiones totales, mejor puntaje, total kills, oleada máxima |
+| Stats rápidas | Tarjetas | Sesiones totales, mejor puntaje, total kills, oleada máxima, duración promedio |
 | Ranking | Tabla | Ordenada por puntaje con medallas para los 3 primeros |
 | Distribución de puntajes | Gráfica de barras | Puntaje final por sesión |
+| Curva de supervivencia | Gráfica de línea | Duración de las últimas 10 partidas en orden cronológico |
 | Kills por minuto | Gráfica de barras | Eficiencia de combate por jugador |
 | Tiempo de reacción | Gráfica de línea | Métrica no trivial: agilidad del jugador |
-
-El dashboard incluye un **selector de jugador** que filtra todas las visualizaciones por jugador específico, permitiendo analizar el comportamiento individual de cada uno.
+| Distribución por oleada | Gráfica de donut | En qué oleada cae la mayoría de los jugadores |
+ 
+El dashboard incluye un **selector de jugador** que filtra todas las visualizaciones por jugador específico, permitiendo analizar el comportamiento individual.
 
 ### Tecnologías
 
