@@ -5,6 +5,8 @@ public class ClickHandler : MonoBehaviour
 {
     public Camera mainCamera;
     public LayerMask enemyLayer;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
 
     void Update()
     {
@@ -16,8 +18,14 @@ public class ClickHandler : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer))
         {
-            Enemy enemy = hit.collider.GetComponent<Enemy>();
-            if (enemy != null) enemy.ReceiveHit();
+            if (hit.collider.GetComponent<Enemy>() == null) return;
+
+            // Solo dispara la bala, ella aplica el daño al llegar
+            Vector3 direction = (hit.point - firePoint.position).normalized;
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            if (bulletScript != null)
+                bulletScript.SetDirection(direction);
         }
     }
 }
